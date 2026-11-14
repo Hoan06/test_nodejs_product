@@ -20,17 +20,17 @@ const pool = mysql.createPool({
 });
 
 // Tự động tạo bảng reviews nếu chưa có
-pool.query(`
-  CREATE TABLE IF NOT EXISTS reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(100) NOT NULL,
-    is_satisfied TINYINT(1) NOT NULL,
-    comment TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  )
-`, (err) => {
-  if (err) console.error('Lỗi khởi tạo bảng:', err);
-});
+// pool.query(`
+//   CREATE TABLE IF NOT EXISTS reviews (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     customer_name VARCHAR(100) NOT NULL,
+//     is_satisfied TINYINT(1) NOT NULL,
+//     comment TEXT,
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+//   )
+// `, (err) => {
+//   if (err) console.error('Lỗi khởi tạo bảng:', err);
+// });
 
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || '123456';
