@@ -34,17 +34,18 @@
     .stat-title { font-size: 14px; color: #64748b; font-weight: 500; }
     .stat-num { font-size: 30px; font-weight: 700; margin: 8px 0 0 0; }
 
-    .progress-wrap { background: var(--card-bg); padding: 22px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 25px; }
-    .progress-top { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px; }
-    .progress-bar { height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #2563eb; border-radius: 6px; transition: width 0.6s ease; }
+    /* Khung chi tiết tỷ lệ 5 mức độ */
+    .breakdown-card { background: var(--card-bg); padding: 22px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 25px; }
+    .breakdown-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+    .breakdown-item:last-child { margin-bottom: 0; }
+    .breakdown-bar-bg { flex-grow: 1; margin: 0 15px; height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
+    .breakdown-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
 
     .table-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; }
     table { width: 100%; border-collapse: collapse; }
     th, td { padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 14px; }
     th { background: #f1f5f9; font-weight: 600; color: #475569; }
     
-    /* Huy hiệu 5 mức độ */
     .badge-1 { background: #fee2e2; color: #991b1b; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
     .badge-2 { background: #ffedd5; color: #9a3412; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
     .badge-3 { background: #fef9c3; color: #854d0e; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
@@ -91,18 +92,43 @@
       <div class="stat-num" style="color: #f59e0b;" id="avgScore">0/5 <i class="fas fa-star fs-5"></i></div>
     </div>
     <div class="stat-card">
-      <div class="stat-title">Tỷ lệ hài lòng (4-5★)</div>
+      <div class="stat-title">Tỷ lệ tích cực (4-5★)</div>
       <div class="stat-num" style="color: #10b981;" id="rateText">0%</div>
     </div>
   </div>
 
-  <div class="progress-wrap">
-    <div class="progress-top">
-      <span>Độ hài lòng chung của khách hàng</span>
-      <span id="rateTextSub">0%</span>
+  <!-- Phần hiển thị chi tiết tỷ lệ % của từng trong 5 mức độ -->
+  <div class="breakdown-card">
+    <h3 class="h6 fw-bold mb-3 text-secondary">Chi tiết tỷ lệ phần trăm các mức độ</h3>
+    
+    <div class="breakdown-item">
+      <span style="width: 150px;">🤩 5. Rất hài lòng</span>
+      <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" id="bar5" style="width: 0%; background: #10b981;"></div></div>
+      <span id="text5" style="width: 80px; text-align: right; font-weight: 600;">0 (0%)</span>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="rateBar" style="width: 0%;"></div>
+
+    <div class="breakdown-item">
+      <span style="width: 150px;">😊 4. Hài lòng</span>
+      <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" id="bar4" style="width: 0%; background: #0ea5e9;"></div></div>
+      <span id="text4" style="width: 80px; text-align: right; font-weight: 600;">0 (0%)</span>
+    </div>
+
+    <div class="breakdown-item">
+      <span style="width: 150px;">😐 3. Bình thường</span>
+      <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" id="bar3" style="width: 0%; background: #eab308;"></div></div>
+      <span id="text3" style="width: 80px; text-align: right; font-weight: 600;">0 (0%)</span>
+    </div>
+
+    <div class="breakdown-item">
+      <span style="width: 150px;">🙁 2. Không hài lòng</span>
+      <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" id="bar2" style="width: 0%; background: #f97316;"></div></div>
+      <span id="text2" style="width: 80px; text-align: right; font-weight: 600;">0 (0%)</span>
+    </div>
+
+    <div class="breakdown-item">
+      <span style="width: 150px;">😡 1. Rất không hài lòng</span>
+      <div class="breakdown-bar-bg"><div class="breakdown-bar-fill" id="bar1" style="width: 0%; background: #ef4444;"></div></div>
+      <span id="text1" style="width: 80px; text-align: right; font-weight: 600;">0 (0%)</span>
     </div>
   </div>
 
@@ -172,8 +198,17 @@
       document.getElementById('totalCount').innerText = data.total;
       document.getElementById('avgScore').innerHTML = data.avgScore + '/5 <i class="fas fa-star text-warning"></i>';
       document.getElementById('rateText').innerText = data.satisfactionRate + '%';
-      document.getElementById('rateTextSub').innerText = data.satisfactionRate + '%';
-      document.getElementById('rateBar').style.width = data.satisfactionRate + '%';
+
+      const total = data.total || 1; // Tránh chia cho 0
+      const b = data.breakdown || { count1: 0, count2: 0, count3: 0, count4: 0, count5: 0 };
+
+      // Cập nhật số lượng và phần trăm cho từng mức 1 đến 5
+      for (let i = 1; i <= 5; i++) {
+        const count = b['count' + i] || 0;
+        const percent = Math.round((count / data.total) * 100) || 0;
+        document.getElementById(`bar${i}`).style.width = percent + '%';
+        document.getElementById(`text${i}`).innerText = `${count} (${percent}%)`;
+      }
 
       const tbody = document.getElementById('reviewTable');
       if (data.reviews.length === 0) {
