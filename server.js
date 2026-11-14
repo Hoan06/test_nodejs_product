@@ -19,19 +19,6 @@ const pool = mysql.createPool({
   connectionLimit: 10
 });
 
-// Tự động tạo bảng reviews nếu chưa có
-// pool.query(`
-//   CREATE TABLE IF NOT EXISTS reviews (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     customer_name VARCHAR(100) NOT NULL,
-//     is_satisfied TINYINT(1) NOT NULL,
-//     comment TEXT,
-//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-//   )
-// `, (err) => {
-//   if (err) console.error('Lỗi khởi tạo bảng:', err);
-// });
-
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || '123456';
 
@@ -39,7 +26,6 @@ const ADMIN_PASS = process.env.ADMIN_PASS || '123456';
 app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
   if (username === ADMIN_USER && password === ADMIN_PASS) {
-    // Trả về một token đơn giản (hoặc cờ xác nhận thành công)
     res.json({ success: true, token: 'admin-auth-token-secret' });
   } else {
     res.status(401).json({ success: false, error: 'Sai tài khoản hoặc mật khẩu!' });
@@ -48,34 +34,47 @@ app.post('/api/admin/login', (req, res) => {
 
 // --- API Gửi đánh giá (Công khai) ---
 app.post('/api/reviews', (req, res) => {
-  const { customer_name, is_satisfied, comment } = req.body;
-  if (!customer_name || is_satisfied === undefined) {
-    return res.status(400).json({ error: 'Vui lòng nhập tên và chọn mức độ hài lòng' });
+  const { customer_name, rating, comment } = req.body;
+  const rateValue = parseInt(rating);
+  
+  if (!customer_name || isNaN(rateValue) || rateValue < 1 || rateValue > 5) {
+    return res.status(400).json({ error: 'Vui lòng nhập tên và chọn mức độ đánh giá hợp lệ (1-5)' });
   }
 
   const sql = 'INSERT INTO reviews (customer_name, is_satisfied, comment) VALUES (?, ?, ?)';
-  pool.query(sql, [customer_name, is_satisfied ? 1 : 0, comment || ''], (err, result) => {
+  // Lưu ý: Vẫn giữ tên cột is_satisfied trong DB hoặc đổi thành rating tuỳ bạn, ở đây ta lưu giá trị từ 1-5 vào cột đó
+  pool.query(sql, [customer_name, rateValue, comment || ''], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
-    res.json({ message: 'Cảm ơn bạn đã đánh giá!', id: result.insertId });
+    res.json({ message: 'Cảm ơn bạn đã đánh giá sản phẩm!', id: result.insertId });
   });
 });
 
 // --- API Thống kê (Dành cho Admin) ---
 app.get('/api/stats', (req, res) => {
-  // Có thể check header Authorization nếu muốn bảo mật sâu hơn
   pool.query('SELECT * FROM reviews ORDER BY id DESC', (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
 
     const total = rows.length;
-    const satisfiedCount = rows.filter(r => r.is_satisfied === 1).length;
-    const unsatisfiedCount = total - satisfiedCount;
-    const satisfactionRate = total > 0 ? Math.round((satisfiedCount / total) * 100) : 0;
+    // Thống kê theo 5 mức độ (1 đến 5)
+    const count1 = rows.filter(r => r.is_satisfied === 1).length;
+    const count2 = rows.filter(r => r.is_satisfied === 2).length;
+    const count3 = rows.filter(r => r.is_satisfied === 3).length;
+    const count4 = rows.filter(r => r.is_satisfied === 4).length;
+    const count5 = rows.filter(r => r.is_satisfied === 5).length;
+
+    // Tính điểm trung bình (trên thang điểm 5)
+    const totalScore = rows.reduce((sum, r) => sum + (r.is_satisfied || 0), 0);
+    const avgScore = total > 0 ? (totalScore / total).toFixed(1) : 0;
+    
+    // Tỷ lệ tích cực (mức 4 và 5 được tính là hài lòng)
+    const positiveCount = count4 + count5;
+    const satisfactionRate = total > 0 ? Math.round((positiveCount / total) * 100) : 0;
 
     res.json({
       total,
-      satisfiedCount,
-      unsatisfiedCount,
+      avgScore,
       satisfactionRate,
+      breakdown: { count1, count2, count3, count4, count5 },
       reviews: rows
     });
   });
