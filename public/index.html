@@ -19,13 +19,41 @@
       overflow-x: hidden;
     }
 
-    /* Navbar Link Admin */
-    .top-bar {
+    /* Thanh Header trên cùng chứa Logo bên trái và nút Admin bên phải */
+    .main-header {
       position: absolute;
-      top: 20px;
-      right: 30px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       z-index: 100;
     }
+
+    .brand-logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 45px;
+      height: 45px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #10b981;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0f172a;
+    }
+
     .btn-admin {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -47,7 +75,7 @@
 
     /* Hero Section Card with Border Hover Effect */
     .hero-section {
-      padding: 100px 0 60px 0;
+      padding: 120px 0 60px 0;
       position: relative;
     }
     
@@ -170,10 +198,14 @@
 </head>
 <body>
 
-  <!-- Top Admin Navigation -->
-  <div class="top-bar">
+  <!-- Thanh Header chứa Logo góc trái và nút Admin góc phải -->
+  <header class="main-header">
+    <a href="#" class="brand-logo-container">
+      <img src="logo.jpg" alt="Dish Wish Logo" class="brand-logo">
+      <span class="brand-name">Dish Wish Bio</span>
+    </a>
     <a href="/admin" class="btn-admin"><i class="fas fa-lock me-2"></i>Quản Trị Admin</a>
-  </div>
+  </header>
 
   <div class="container py-5">
     
