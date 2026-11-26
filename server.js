@@ -34,16 +34,19 @@ app.post('/api/admin/login', (req, res) => {
 
 // --- API Gửi đánh giá (Công khai) ---
 app.post('/api/reviews', (req, res) => {
-  const { customer_name, rating, comment } = req.body;
-  const rateValue = parseInt(rating);
-  
+  const { customer_name, rating, comment, criteria_scores } = req.body;
+  const rateValue = parseInt(rating, 10);
+
   if (!customer_name || isNaN(rateValue) || rateValue < 1 || rateValue > 5) {
     return res.status(400).json({ error: 'Vui lòng nhập tên và chọn mức độ đánh giá hợp lệ (1-5)' });
   }
 
-  const sql = 'INSERT INTO reviews (customer_name, is_satisfied, comment) VALUES (?, ?, ?)';
-  // Lưu ý: Vẫn giữ tên cột is_satisfied trong DB hoặc đổi thành rating tuỳ bạn, ở đây ta lưu giá trị từ 1-5 vào cột đó
-  pool.query(sql, [customer_name, rateValue, comment || ''], (err, result) => {
+  const scoresJson = criteria_scores && typeof criteria_scores === 'object'
+    ? JSON.stringify(criteria_scores)
+    : null;
+
+  const sql = 'INSERT INTO reviews (customer_name, is_satisfied, criteria_scores, comment) VALUES (?, ?, ?, ?)';
+  pool.query(sql, [customer_name, rateValue, scoresJson, comment || ''], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: 'Cảm ơn bạn đã đánh giá sản phẩm!', id: result.insertId });
   });
@@ -55,26 +58,57 @@ app.get('/api/stats', (req, res) => {
     if (err) return res.status(500).json({ error: err.message });
 
     const total = rows.length;
-    // Thống kê theo 5 mức độ (1 đến 5)
     const count1 = rows.filter(r => r.is_satisfied === 1).length;
     const count2 = rows.filter(r => r.is_satisfied === 2).length;
     const count3 = rows.filter(r => r.is_satisfied === 3).length;
     const count4 = rows.filter(r => r.is_satisfied === 4).length;
     const count5 = rows.filter(r => r.is_satisfied === 5).length;
 
-    // Tính điểm trung bình (trên thang điểm 5)
     const totalScore = rows.reduce((sum, r) => sum + (r.is_satisfied || 0), 0);
     const avgScore = total > 0 ? (totalScore / total).toFixed(1) : 0;
-    
-    // Tỷ lệ tích cực (mức 4 và 5 được tính là hài lòng)
+
     const positiveCount = count4 + count5;
     const satisfactionRate = total > 0 ? Math.round((positiveCount / total) * 100) : 0;
+
+    // Tính điểm trung bình từng tiêu chí (10 chỉ tiêu)
+    const sumByKey = {};
+    const countByKey = {};
+
+    rows.forEach(r => {
+      if (!r.criteria_scores) return;
+      let parsed = r.criteria_scores;
+      if (typeof parsed === 'string') {
+        try {
+          parsed = JSON.parse(parsed);
+        } catch (e) {
+          parsed = null;
+        }
+      }
+      if (parsed && typeof parsed === 'object') {
+        Object.entries(parsed).forEach(([key, val]) => {
+          const num = Number(val);
+          if (!isNaN(num) && num >= 1 && num <= 5) {
+            sumByKey[key] = (sumByKey[key] || 0) + num;
+            countByKey[key] = (countByKey[key] || 0) + 1;
+          }
+        });
+      }
+    });
+
+    const criteriaAverages = {};
+    Object.keys(sumByKey).forEach(key => {
+      criteriaAverages[key] = {
+        avg: Number((sumByKey[key] / countByKey[key]).toFixed(1)),
+        count: countByKey[key]
+      };
+    });
 
     res.json({
       total,
       avgScore,
       satisfactionRate,
       breakdown: { count1, count2, count3, count4, count5 },
+      criteriaAverages,
       reviews: rows
     });
   });

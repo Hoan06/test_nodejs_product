@@ -128,8 +128,8 @@
     }
     .feature-card:hover {
       transform: translateY(-8px);
-      border-color: #cbd5e1;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+      border-color: #10b981;
+      box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.12);
     }
     .feature-icon {
       width: 55px;
@@ -152,6 +152,164 @@
       color: #0284c7;
     }
 
+    /* Detail Sections */
+    .detail-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+    }
+    .detail-box:hover {
+      border-color: #10b981;
+      box-shadow: 0 16px 28px -8px rgba(16, 185, 129, 0.12);
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: #d1fae5;
+      color: #047857;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .criteria-pill {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .ingredient-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+    .ingredient-img:hover {
+      border-color: #10b981;
+      box-shadow: 0 12px 20px -6px rgba(16, 185, 129, 0.2);
+    }
+
+    .custom-table thead th {
+      background-color: #ecfdf5;
+      color: #065f46;
+      font-weight: 700;
+      border-bottom: 2px solid #a7f3d0;
+      padding: 14px 16px;
+    }
+    .custom-table tbody td {
+      padding: 14px 16px;
+      vertical-align: middle;
+      color: #334155;
+    }
+
+    .guide-step {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #10b981;
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    .message-banner {
+      background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+      border: 1px solid #86efac;
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    /* Bảng câu hỏi chấm sao 10 chỉ tiêu */
+    .survey-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .survey-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+    }
+    .survey-item:last-child {
+      margin-bottom: 0;
+    }
+    .survey-item:hover {
+      border-color: #10b981;
+      box-shadow: 0 6px 16px -6px rgba(16, 185, 129, 0.15);
+    }
+    .survey-item.invalid-criteria {
+      border-color: #dc2626 !important;
+      background: #fef2f2;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    }
+    .criteria-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #10b981;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    /* CSS chọn sao từ phải qua trái để hover sáng sao đẹp mắt */
+    .star-rating {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: 6px;
+    }
+    .star-rating input {
+      display: none;
+    }
+    .star-rating label {
+      font-size: 1.45rem;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: transform 0.15s ease, color 0.15s ease;
+      margin: 0;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+      color: #f59e0b;
+    }
+    .star-rating label:hover {
+      transform: scale(1.15);
+    }
+    .star-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #64748b;
+      min-width: 92px;
+      text-align: center;
+    }
+    .star-badge.rated {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
     /* Review Box Light */
     .review-wrapper {
       background: #ffffff;
@@ -159,6 +317,10 @@
       border-radius: 24px;
       padding: 40px;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .review-wrapper:hover {
+      border-color: #10b981;
     }
 
     .form-control, .form-control:focus {
@@ -175,7 +337,7 @@
     }
     .form-control::placeholder { color: #94a3b8; }
 
-    /* Custom 5 mức độ đánh giá Tone sáng */
+    /* Custom 5 mức độ đánh giá tổng quát */
     .rating-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
     .custom-radio {
       background: #f8fafc; border: 1px solid #e2e8f0;
@@ -195,6 +357,18 @@
       background: #059669;
       transform: translateY(-2px);
       box-shadow: 0 15px 20px -3px rgba(16, 185, 129, 0.4);
+    }
+
+    @media (max-width: 576px) {
+      .main-header {
+        padding: 16px 20px;
+      }
+      .hero-title {
+        font-size: 2rem;
+      }
+      .product-card-box, .detail-box, .review-wrapper {
+        padding: 24px;
+      }
     }
   </style>
 </head>
@@ -219,9 +393,10 @@
             <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold mb-3 d-inline-block">Dự Án Nghiên Cứu Xanh 🌱</span>
             <h1 class="hero-title mb-3">Nước Rửa Chén Sinh Học Từ <span>Rác Thải Nhà Bếp</span></h1>
             <p class="hero-desc mb-4">Giải pháp hữu cơ an toàn tuyệt đối cho sức khỏe gia đình, bảo vệ da tay, chống tắc nghẽn đường ống và tận dụng rác thải hữu cơ để bảo vệ môi trường sống.</p>
-            <div class="d-flex gap-3 align-items: center">
+            <div class="d-flex flex-wrap gap-3 align-items-center">
               <a href="#reviewSection" class="btn btn-success px-4 py-3 rounded-pill fw-semibold shadow-sm">Đánh Giá Sản Phẩm</a>
-              <div class="d-flex align-items: center gap-2 text-warning fs-5">
+              <a href="#productDetails" class="btn btn-outline-success px-4 py-3 rounded-pill fw-semibold">Chi Tiết Sản Phẩm</a>
+              <div class="d-flex align-items-center gap-2 text-warning fs-5">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                 <span class="text-dark fs-6 fw-bold ms-1">(4.8/5)</span>
               </div>
@@ -280,23 +455,231 @@
       </div>
     </section>
 
-    <!-- Review Section với 5 mức độ -->
+    <!-- Chi Tiết Giới Thiệu Sản Phẩm (6 Mục đầy đủ) -->
+    <section id="productDetails" class="py-4">
+      <div class="text-center mb-4">
+        <span class="section-badge"><i class="fas fa-flask me-1"></i> GIỚI THIỆU SẢN PHẨM</span>
+        <h2 class="fw-bold text-dark mb-1">NƯỚC RỬA CHÉN SINH HỌC</h2>
+        <p class="text-muted mb-0">Dự án NCKH – Khoa Kỹ thuật Hóa học, Trường Đại học Công nghiệp Việt Trì (Năm học 2026–2027)</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- 1. GIỚI THIỆU SẢN PHẨM -->
+        <div class="col-12">
+          <div class="detail-box">
+            <h3 class="h5 fw-bold text-dark mb-3"><i class="fas fa-seedling text-success me-2"></i>1. Giới Thiệu Sản Phẩm</h3>
+            <p class="mb-3"><strong>Tên sản phẩm:</strong> Nước rửa chén sinh học</p>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-4">
+                <div class="criteria-pill"><i class="fas fa-check-circle text-success me-2"></i>Không hóa chất độc hại</div>
+              </div>
+              <div class="col-md-4">
+                <div class="criteria-pill"><i class="fas fa-check-circle text-success me-2"></i>Không tổn thương da tay</div>
+              </div>
+              <div class="col-md-4">
+                <div class="criteria-pill"><i class="fas fa-check-circle text-success me-2"></i>Không gây hại môi trường</div>
+              </div>
+            </div>
+
+            <p class="text-muted lh-lg mb-3">
+              <strong>Nguồn gốc, ý tưởng hình thành:</strong> Xuất phát từ thực tế 85% hộ gia đình nông thôn đang dùng nước rửa chén công nghiệp (chứa LAS, SLS/SLES, Paraben) từ các chất hóa học, các hoá chất còn sót lại trong quá trình tráng rửa có thể thấm vào cơ thể gây hành loạt các tổn thương như viêm gan, viêm dạ dày, túi mật, làm giảm sức đề kháng của cơ thể và tiềm ẩn khả năng gây ung thư cho người sử dụng và tắc cống.
+            </p>
+            <p class="text-muted lh-lg mb-3">
+              Trong cuộc sống hàng ngày những loại rác thải đã và đang trở thành vấn đề nhức nhối của toàn xã hội, rác thải ở vùng nông thôn lại càng khó giải quyết vì đa số rác ở nông thôn mới dùng lại ở khâu thu gom rác, do đó làm ảnh hưởng đến môi trường sống ở các vùng nông thôn. Rác thải có nguồn gốc từ thực vật như vỏ hoa quả, gốc rau, củ quả… khi thải ra môi trường gây hôi thối và lãng phí nguồn nguyên liệu có thể tái sử dụng.
+            </p>
+            <p class="text-muted lh-lg mb-0">
+              <strong>Các loại vỏ hoa quả sử dụng:</strong> Tận dụng phế phẩm vỏ quả tươi sạch giàu tinh dầu và axit tự nhiên như vỏ dứa, vỏ bưởi, vỏ cam, vỏ chanh và phần thừa rau củ quả hàng ngày.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. THÀNH PHẦN + 3 ẢNH tp1.png, tp2.png, tp3.png -->
+        <div class="col-12">
+          <div class="detail-box">
+            <h3 class="h5 fw-bold text-dark mb-3"><i class="fas fa-leaf text-success me-2"></i>2. Thành Phần</h3>
+            <p class="text-muted lh-lg mb-4">
+              Vỏ cam, chanh, bưởi, dứa..; Quả bồ hòn khô; Đường nâu; Nước sạch (những nguyên liệu lành tính).
+            </p>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <img src="tp1.png" alt="Thành phần 1" class="ingredient-img">
+              </div>
+              <div class="col-md-4">
+                <img src="tp2.png" alt="Thành phần 2" class="ingredient-img">
+              </div>
+              <div class="col-md-4">
+                <img src="tp3.png" alt="Thành phần 3" class="ingredient-img">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CÔNG DỤNG CỦA SẢN PHẨM -->
+        <div class="col-12">
+          <div class="detail-box">
+            <h3 class="h5 fw-bold text-dark mb-3"><i class="fas fa-sparkles text-success me-2"></i>3. Công Dụng Của Sản Phẩm</h3>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="p-3 rounded-3 bg-light border h-100">
+                  <div class="fw-bold text-dark mb-2">Làm sạch dầu mỡ & vết ố cứng đầu</div>
+                  <p class="text-muted small mb-0 lh-lg">Enzyme Lipase cắt nhỏ chuỗi chất béo thành Glycerol tan trong nước; kết hợp cấu trúc Micelle lưỡng ưa của Saponin bồ hòn bóc tách dầu mỡ và Axit Citric tẩy sạch vết ố trà, cà phê trên sứ, thủy tinh.</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 rounded-3 bg-light border h-100">
+                  <div class="fw-bold text-dark mb-2">Khử mùi thức ăn trên bát đĩa</div>
+                  <p class="text-muted small mb-0 lh-lg">Axit hữu cơ và tinh dầu D-Limonene từ vỏ cam, bưởi trung hòa hợp chất Amin gây mùi tanh từ cá, thịt, trứng và nước mắm.</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 rounded-3 bg-light border h-100">
+                  <div class="fw-bold text-dark mb-2">Hương thơm tự nhiên, dịu nhẹ da tay & đa năng</div>
+                  <p class="text-muted small mb-0 lh-lg">Lưu hương cam, bưởi, dứa, sả chanh thanh mát; độ pH đạt 6,0 – 6,8 an toàn, không làm khô da tay. Ngoài rửa bát còn dùng lau kính (pha tỉ lệ 1:20), lau bếp gas/mặt đá và làm sạch đường ống cống.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. ĐỐI TƯỢNG KHÁCH HÀNG -->
+        <div class="col-12">
+          <div class="detail-box">
+            <h3 class="h5 fw-bold text-dark mb-3"><i class="fas fa-users text-success me-2"></i>4. Đối Tượng Khách Hàng</h3>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="p-3 rounded-3 border bg-light h-100">
+                  <div class="fw-bold text-dark mb-1">Các hộ gia đình</div>
+                  <p class="text-muted small mb-0 lh-lg">Đặc biệt là gia đình nông thôn, gia đình có trẻ nhỏ, người cao tuổi và người có làn da tay nhạy cảm.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="p-3 rounded-3 border bg-light h-100">
+                  <div class="fw-bold text-dark mb-1">Người chuộng sản phẩm thiên nhiên & sống xanh</div>
+                  <p class="text-muted small mb-0 lh-lg">Người tiêu dùng hạn chế hóa chất tồn dư, trường học thực hành STEM và cộng đồng tái chế rác hữu cơ tại nguồn.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. GIÁ CẢ VÀ CÁCH SỬ DỤNG -->
+        <div class="col-12">
+          <div class="detail-box">
+            <h3 class="h5 fw-bold text-dark mb-3"><i class="fas fa-tags text-success me-2"></i>5. Giá Cả Và Cách Sử Dụng</h3>
+
+            <div class="table-responsive mb-4">
+              <table class="table table-bordered custom-table mb-0">
+                <thead>
+                  <tr>
+                    <th>Quy cách đóng gói</th>
+                    <th>Dung tích</th>
+                    <th>Đối tượng / Mục đích</th>
+                    <th>Giá bán tham khảo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="fw-semibold">Chai nhỏ gọn</td>
+                    <td>100ml</td>
+                    <td>Dùng thử, cá nhân, mang đi xa</td>
+                    <td class="fw-bold text-success">7.000 đ</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-semibold">Chai tiêu chuẩn</td>
+                    <td>250 ml</td>
+                    <td>Gia đình nhỏ 2–3 người</td>
+                    <td class="fw-bold text-success">14.000 đ</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-semibold">Chai vòi nhấn phổ biến</td>
+                    <td>500 ml</td>
+                    <td>Gia đình 4 người dùng hàng ngày</td>
+                    <td class="fw-bold text-success">19.000 đ</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-semibold">Chai đại tiết kiệm</td>
+                    <td>1.000 ml</td>
+                    <td>Gia đình đông người / chiết rót</td>
+                    <td class="fw-bold text-success">29.000 đ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-lg-7">
+                <div class="guide-step h-100">
+                  <div class="fw-bold text-dark mb-2"><i class="fas fa-hand-sparkles text-success me-2"></i>Cách sử dụng</div>
+                  <p class="text-muted small mb-2 lh-lg">
+                    <strong>(1) Rửa trực tiếp:</strong> Rót 15–20 ml dung dịch với 50 ml nước sạch, bóp nhẹ miếng bọt biển/xơ dừa để tạo bọt sinh học rồi rửa và tráng sạch.
+                  </p>
+                  <p class="text-muted small mb-2 lh-lg">
+                    <strong>(2) Pha loãng:</strong> Pha 30 ml dung dịch với 2 Lít nước ấm để rửa bát đĩa ít dầu mỡ.
+                  </p>
+                  <p class="text-muted small mb-0 lh-lg">
+                    <strong>Lưu ý:</strong> Sản phẩm không chứa hóa chất tạo bọt (SLS/SLES) nên ít bọt hơn loại công nghiệp nhưng vẫn sạch dầu mỡ.
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="guide-step h-100">
+                  <div class="fw-bold text-dark mb-2"><i class="fas fa-box-open text-success me-2"></i>Cách bảo quản</div>
+                  <p class="text-muted small mb-0 lh-lg">
+                    Đậy kín nắp sau khi dùng, đặt nơi khô ráo, thoáng mát, tránh ánh nắng mặt trời trực tiếp để giữ ổn định hoạt tính enzyme và vi sinh.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. THÔNG ĐIỆP VÀ LỜI KÊU GỌI -->
+        <div class="col-12">
+          <div class="message-banner">
+            <h3 class="h5 fw-bold text-dark mb-3"><i class="fas fa-bullhorn text-success me-2"></i>6. Thông Điệp Và Lời Kêu GỌi</h3>
+            <p class="text-dark lh-lg mb-3">
+              <strong>Lựa chọn tiêu dùng xanh:</strong> "Biến rác thải nhà bếp thành tài nguyên xanh – Bảo vệ đôi tay và nguồn nước Việt". Khuyến khích mỗi gia đình thay thế chất tẩy rửa hóa học bằng chế phẩm sinh học coEnzym Bồ Hòn &amp; Vỏ quả an toàn, lành tính.
+            </p>
+            <p class="text-dark lh-lg mb-0">
+              <strong>Lan tỏa thói quen tái chế:</strong> Kêu gọi cộng đồng phân loại rác hữu cơ ngay tại nguồn, tận dụng vỏ dứa, bưởi, cam, chanh để giảm rác thải sinh hoạt, bảo vệ nguồn nước và xây dựng lối sống xanh bền vững.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Review Section với 10 Câu Hỏi Chấm Sao + Đánh giá chung -->
     <section id="reviewSection" class="row justify-content-center py-5">
-      <div class="col-lg-9">
+      <div class="col-lg-10">
         <div class="review-wrapper">
           <div class="text-center mb-4">
             <h2 class="fw-bold mb-2 text-dark">Đánh Giá Trải Nghiệm Sản Phẩm</h2>
-            <p class="text-muted">Ý kiến thực tế của bạn giúp nhóm nghiên cứu hoàn thiện sản phẩm sinh học này tốt hơn!</p>
+            <p class="text-muted mb-0">Vui lòng chấm sao (1 – 5 sao) đầy đủ cho cả 10 tiêu chí trước khi gửi đánh giá!</p>
           </div>
 
-          <form id="reviewForm">
-            <div class="mb-3">
+          <form id="reviewForm" novalidate>
+            <div class="mb-4">
               <label class="form-label fw-semibold text-dark">Họ và tên của bạn <span class="text-danger">*</span></label>
               <input type="text" id="name" class="form-control" required placeholder="Nhập họ và tên...">
             </div>
 
+            <!-- 10 Câu Hỏi Chỉ Tiêu Chấm Sao (1-5 sao, mặc định chưa tích sao nào) -->
+            <div class="survey-box">
+              <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                <h3 class="h6 fw-bold text-success text-uppercase mb-0">
+                  <i class="fas fa-star me-2"></i>Chỉ Tiêu Đánh Giá Sự Hài Lòng Của Khách Hàng (Bắt buộc chọn 1 – 5 Sao) <span class="text-danger">*</span>
+                </h3>
+                <span class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill fw-bold" id="criteriaProgressBadge">
+                  Đã chọn: 0 / 10 tiêu chí
+                </span>
+              </div>
+
+              <div id="criteriaList"></div>
+            </div>
+
             <div class="mb-4">
-              <label class="form-label fw-semibold text-dark mb-2">Mức độ hài lòng về sản phẩm <span class="text-danger">*</span></label>
+              <label class="form-label fw-semibold text-dark mb-2">Mức độ hài lòng tổng quát về sản phẩm <span class="text-danger">*</span></label>
               <div class="rating-options">
                 <label class="custom-radio text-danger">
                   <i class="fas fa-angry fs-5"></i><span>1. Rất không hài lòng</span>
@@ -322,8 +705,8 @@
             </div>
 
             <div class="mb-4">
-              <label class="form-label fw-semibold text-dark">Nhận xét chi tiết hoặc góp ý</label>
-              <textarea id="comment" class="form-control" rows="4" placeholder="Chia sẻ cảm nhận về độ sạch, mùi hương hoặc trải nghiệm dùng..."></textarea>
+              <label class="form-label fw-semibold text-dark">Nhận xét chi tiết hoặc góp ý thêm</label>
+              <textarea id="comment" class="form-control" rows="4" placeholder="Chia sẻ thêm cảm nhận hoặc đề xuất cải tiến của bạn..."></textarea>
             </div>
 
             <button type="submit" class="btn btn-submit w-100">Gửi Đánh Giá Ngay</button>
@@ -339,32 +722,175 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Xử lý gửi form đánh giá API
+    const criteriaData = [
+      { key: 'mui_huong', title: 'Mùi hương', desc: 'Sản phẩm có mùi hương tự nhiên từ vỏ hoa quả, dễ chịu và không quá nồng.' },
+      { key: 'mau_sac', title: 'Màu sắc', desc: 'Màu sắc sản phẩm đẹp, hài hòa, tạo cảm giác tự nhiên và sạch sẽ.' },
+      { key: 'tao_bot', title: 'Khả năng tạo bọt', desc: 'Sản phẩm tạo được lượng bọt phù hợp, thuận tiện trong quá trình rửa chén.' },
+      { key: 'lam_sach', title: 'Khả năng làm sạch', desc: 'Sản phẩm có khả năng loại bỏ dầu mỡ và các vết bẩn bám trên bát đĩa.' },
+      { key: 'khu_mui', title: 'Khả năng khử mùi', desc: 'Sản phẩm giúp loại bỏ mùi tanh của cá, thịt và mùi thức ăn trên dụng cụ.' },
+      { key: 'rua_troi', title: 'Khả năng rửa trôi', desc: 'Sản phẩm dễ dàng rửa sạch bằng nước, không để lại cặn hoặc cảm giác nhờn rít.' },
+      { key: 'do_an_toan', title: 'Độ an toàn', desc: 'Sản phẩm tạo cảm giác dịu nhẹ khi sử dụng, hạn chế tình trạng khô ráp da tay.' },
+      { key: 'moi_truong', title: 'Tính thân thiện môi trường', desc: 'Sản phẩm tận dụng vỏ hoa quả làm nguyên liệu, góp phần giảm thiểu chất thải.' },
+      { key: 'gia_bao_bi', title: 'Giá cả và bao bì', desc: 'Giá thành hợp lý, bao bì đẹp mắt, tiện lợi và phù hợp với nhu cầu người tiêu dùng.' },
+      { key: 'hai_long_chung', title: 'Mức độ hài lòng chung', desc: 'Khách hàng hài lòng với chất lượng sản phẩm, có ý định tiếp tục sử dụng và giới thiệu cho người khác.' }
+    ];
+
+    const criteriaListEl = document.getElementById('criteriaList');
+    const msgEl = document.getElementById('msg');
+
+    // Render 10 tiêu chí, mặc định KHÔNG tích sao nào
+    criteriaListEl.innerHTML = criteriaData.map((item, idx) => {
+      const starsHtml = [5, 4, 3, 2, 1].map(star => `
+        <input type="radio" id="${item.key}_${star}" name="crit_${item.key}" value="${star}">
+        <label for="${item.key}_${star}" title="${star} sao"><i class="fas fa-star"></i></label>
+      `).join('');
+
+      return `
+        <div class="survey-item" id="box_${item.key}">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+            <div class="d-flex align-items-start">
+              <span class="criteria-num">${idx + 1}</span>
+              <div>
+                <div class="fw-bold text-dark">${item.title} <span class="text-danger">*</span></div>
+                <div class="small text-muted">${item.desc}</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end gap-2 flex-shrink-0">
+              <div class="star-rating">${starsHtml}</div>
+              <span class="star-badge" id="badge_${item.key}">Chưa chọn ★</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    function updateCriteriaStatus() {
+      let checkedCount = 0;
+      let totalStars = 0;
+
+      criteriaData.forEach(item => {
+        const checked = document.querySelector(`input[name="crit_${item.key}"]:checked`);
+        const badgeEl = document.getElementById(`badge_${item.key}`);
+        const boxEl = document.getElementById(`box_${item.key}`);
+
+        if (checked) {
+          const val = parseInt(checked.value, 10);
+          checkedCount += 1;
+          totalStars += val;
+          badgeEl.innerText = `${val} / 5 ★`;
+          badgeEl.classList.add('rated');
+          boxEl.classList.remove('invalid-criteria');
+        } else {
+          badgeEl.innerText = 'Chưa chọn ★';
+          badgeEl.classList.remove('rated');
+        }
+      });
+
+      const progressBadge = document.getElementById('criteriaProgressBadge');
+      if (checkedCount === criteriaData.length) {
+        const avg = (totalStars / criteriaData.length).toFixed(1);
+        progressBadge.className = 'badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold';
+        progressBadge.innerText = `Đã chọn: 10 / 10 tiêu chí (TB: ${avg}/5 ★)`;
+
+        const rounded = Math.round(totalStars / criteriaData.length);
+        const overallRadio = document.querySelector(`input[name="rating"][value="${rounded}"]`);
+        if (overallRadio) overallRadio.checked = true;
+      } else {
+        progressBadge.className = 'badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill fw-bold';
+        progressBadge.innerText = `Đã chọn: ${checkedCount} / 10 tiêu chí`;
+      }
+    }
+
+    criteriaListEl.addEventListener('change', () => {
+      updateCriteriaStatus();
+      msgEl.innerText = '';
+    });
+
+    // Xử lý validate & gửi form đánh giá API
     document.getElementById('reviewForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const customer_name = document.getElementById('name').value;
+      const customerNameInput = document.getElementById('name');
+      const customer_name = customerNameInput.value.trim();
+
+      if (!customer_name) {
+        msgEl.style.color = '#dc2626';
+        msgEl.innerText = '⚠️ Vui lòng nhập họ và tên của bạn!';
+        customerNameInput.focus();
+        return;
+      }
+
+      // Kiểm tra bắt buộc phải tích sao đủ 10 tiêu chí
+      const missingItems = [];
+      const criteria_scores = {};
+
+      criteriaData.forEach((item, idx) => {
+        const checked = document.querySelector(`input[name="crit_${item.key}"]:checked`);
+        const boxEl = document.getElementById(`box_${item.key}`);
+        if (!checked) {
+          missingItems.push({ index: idx + 1, title: item.title, el: boxEl });
+          boxEl.classList.add('invalid-criteria');
+        } else {
+          boxEl.classList.remove('invalid-criteria');
+          criteria_scores[item.key] = Number(checked.value);
+        }
+      });
+
+      if (missingItems.length > 0) {
+        const firstMissing = missingItems[0];
+        msgEl.style.color = '#dc2626';
+        msgEl.innerText = `⚠️ Bạn chưa chấm sao cho ${missingItems.length} tiêu chí (đầu tiên: ${firstMissing.index}. ${firstMissing.title}). Vui lòng chọn đủ 10 tiêu chí!`;
+        firstMissing.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
       const rating = document.querySelector('input[name="rating"]:checked').value;
-      const comment = document.getElementById('comment').value;
+      const userComment = document.getElementById('comment').value.trim();
+
+      const criteriaSummary = criteriaData.map((item, idx) => {
+        return `${idx + 1}. ${item.title}: ${criteria_scores[item.key]}/5★`;
+      }).join(' | ');
+
+      const fullComment = userComment
+        ? `[10 tiêu chí: ${criteriaSummary}]\nNhận xét: ${userComment}`
+        : `[10 tiêu chí: ${criteriaSummary}]`;
 
       try {
         const res = await fetch('/api/reviews', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ customer_name, rating, comment })
+          body: JSON.stringify({
+            customer_name,
+            rating,
+            criteria_scores,
+            comment: fullComment
+          })
         });
 
-        const data = await res.json();
-        const msgEl = document.getElementById('msg');
+        const rawText = await res.text();
+        let data = {};
+        if (rawText) {
+          try {
+            data = JSON.parse(rawText);
+          } catch (parseErr) {
+            throw new Error(`Phản hồi không phải JSON (HTTP ${res.status}): ${rawText.slice(0, 120)}`);
+          }
+        } else if (!res.ok) {
+          throw new Error(`Máy chủ trả về rỗng (HTTP ${res.status})`);
+        }
+
         if (res.ok) {
           msgEl.style.color = '#059669';
-          msgEl.innerText = '🎉 ' + data.message;
+          msgEl.innerText = '🎉 ' + (data.message || 'Cảm ơn bạn đã đánh giá sản phẩm!');
           e.target.reset();
+          updateCriteriaStatus();
         } else {
           msgEl.style.color = '#dc2626';
-          msgEl.innerText = data.error || 'Có lỗi xảy ra!';
+          msgEl.innerText = data.error || `Có lỗi xảy ra (HTTP ${res.status})!`;
         }
       } catch (err) {
         console.error(err);
+        msgEl.style.color = '#dc2626';
+        msgEl.innerText = '⚠️ ' + (err.message || 'Lỗi kết nối máy chủ!');
       }
     });
   </script>

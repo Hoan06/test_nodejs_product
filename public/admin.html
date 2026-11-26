@@ -10,7 +10,7 @@
       --primary: #2563eb; --primary-hover: #1d4ed8; --bg-color: #f8fafc;
       --card-bg: #ffffff; --text-color: #1e293b; --border-color: #e2e8f0;
     }
-    body { font-family: system-ui, -apple-system, sans-serif; max-width: 950px; margin: 0 auto; padding: 30px 20px; background: var(--bg-color); color: var(--text-color); }
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 1120px; margin: 0 auto; padding: 30px 20px; background: var(--bg-color); color: var(--text-color); }
     
     #loginOverlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -41,16 +41,72 @@
     .breakdown-bar-bg { flex-grow: 1; margin: 0 15px; height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
     .breakdown-bar-fill { height: 100%; border-radius: 5px; transition: width 0.5s ease; }
 
-    .table-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 14px; }
-    th { background: #f1f5f9; font-weight: 600; color: #475569; }
-    
-    .badge-1 { background: #fee2e2; color: #991b1b; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .badge-2 { background: #ffedd5; color: #9a3412; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .badge-3 { background: #fef9c3; color: #854d0e; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .badge-4 { background: #e0f2fe; color: #0369a1; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .badge-5 { background: #d1fae5; color: #065f46; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .table-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 780px; }
+    th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 14px; vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 600; color: #475569; white-space: nowrap; }
+    tbody tr:hover { background: #f8fafc; }
+
+    /* Cố định độ rộng hợp lý cho từng cột */
+    th:nth-child(1), td:nth-child(1) { width: 140px; }
+    th:nth-child(2), td:nth-child(2) { width: 175px; white-space: nowrap; }
+    th:nth-child(4), td:nth-child(4) { width: 135px; white-space: nowrap; color: #64748b; font-size: 13px; }
+
+    [class^="badge-"] {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge-1 { background: #fee2e2; color: #991b1b; }
+    .badge-2 { background: #ffedd5; color: #9a3412; }
+    .badge-3 { background: #fef9c3; color: #854d0e; }
+    .badge-4 { background: #e0f2fe; color: #0369a1; }
+    .badge-5 { background: #d1fae5; color: #065f46; }
+
+    /* Định dạng lại phần nhận xét & 10 tiêu chí cho dễ đọc */
+    .criteria-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .criteria-chip {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 12px;
+      line-height: 1.4;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .criteria-chip strong {
+      color: #0f172a;
+    }
+    .comment-note {
+      background: #ecfdf5;
+      border-left: 3px solid #10b981;
+      color: #064e3b;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .comment-plain {
+      color: #1e293b;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+    .comment-empty {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
     a { color: var(--primary); text-decoration: none; }
   </style>
 </head>
@@ -191,6 +247,46 @@
       5: '<span class="badge-5">🤩 5. Rất hài lòng</span>'
     };
 
+    function escapeHtml(str = '') {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderCommentCell(rawComment) {
+      if (!rawComment || !String(rawComment).trim()) {
+        return '<span class="comment-empty">Không có nhận xét</span>';
+      }
+
+      const text = String(rawComment).trim();
+      const match = text.match(/^\[10 tiêu chí:\s*(.*?)\]\s*(?:Nhận xét:\s*([\s\S]*))?$/);
+
+      if (!match) {
+        return `<div class="comment-plain">${escapeHtml(text).replace(/\n/g, '<br>')}</div>`;
+      }
+
+      const criteriaPart = match[1] || '';
+      const extraComment = (match[2] || '').trim();
+
+      const chipsHtml = criteriaPart
+        .split('|')
+        .map(part => part.trim())
+        .filter(Boolean)
+        .map(item => `<span class="criteria-chip">${escapeHtml(item)}</span>`)
+        .join('');
+
+      const noteHtml = extraComment
+        ? `<div class="comment-note"><strong>Nhận xét:</strong> ${escapeHtml(extraComment).replace(/\n/g, '<br>')}</div>`
+        : '';
+
+      return `
+        ${chipsHtml ? `<div class="criteria-box">${chipsHtml}</div>` : ''}
+        ${noteHtml}
+      `;
+    }
+
     async function loadStats() {
       const res = await fetch('/api/stats');
       const data = await res.json();
@@ -199,13 +295,11 @@
       document.getElementById('avgScore').innerHTML = data.avgScore + '/5 <i class="fas fa-star text-warning"></i>';
       document.getElementById('rateText').innerText = data.satisfactionRate + '%';
 
-      const total = data.total || 1; // Tránh chia cho 0
       const b = data.breakdown || { count1: 0, count2: 0, count3: 0, count4: 0, count5: 0 };
 
-      // Cập nhật số lượng và phần trăm cho từng mức 1 đến 5
       for (let i = 1; i <= 5; i++) {
         const count = b['count' + i] || 0;
-        const percent = Math.round((count / data.total) * 100) || 0;
+        const percent = data.total ? Math.round((count / data.total) * 100) : 0;
         document.getElementById(`bar${i}`).style.width = percent + '%';
         document.getElementById(`text${i}`).innerText = `${count} (${percent}%)`;
       }
@@ -218,9 +312,9 @@
 
       tbody.innerHTML = data.reviews.map(r => `
         <tr>
-          <td><strong>${r.customer_name}</strong></td>
-          <td>${ratingLabels[r.is_satisfied] || r.is_satisfied}</td>
-          <td>${r.comment || '<em style="color: #94a3b8;">Không có nhận xét</em>'}</td>
+          <td><strong>${escapeHtml(r.customer_name)}</strong></td>
+          <td>${ratingLabels[r.is_satisfied] || escapeHtml(r.is_satisfied)}</td>
+          <td>${renderCommentCell(r.comment)}</td>
           <td>${new Date(r.created_at).toLocaleString('vi-VN')}</td>
         </tr>
       `).join('');
